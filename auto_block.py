@@ -23,11 +23,11 @@ def main():
         check = url_sanity(options.urls,options.verbose)
         critical = check.check_critical()
         top10k = check.check_top10K()
-        
-        if critical:
+
+        if not critical:
             print "[!] URL list included a global block"
             return
-        if top10k:
+        if not top10k:
             print "[!] URL list included URLs from the Alexa 10,000"
             return
         

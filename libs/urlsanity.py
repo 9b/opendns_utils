@@ -17,8 +17,10 @@ class url_sanity():
         for line in lines:
             if line.strip() == "." or line.strip() == "www":
                 self._proceed = False
+                return self._proceed
             else:
                 self._proceed = True
+        return self._proceed
                 
     def check_top10K(self):
         matches = None
@@ -28,8 +30,10 @@ class url_sanity():
         matches = set(self._urls) & set(self._top_sites)
         if matches != None:
             self._proceed = False
+            return self._proceed
         else:
             self._proceed = True
+        return self._proceed
                 
     def get_top_sites(self):
         f = urllib2.urlopen(self._alexa_link)
