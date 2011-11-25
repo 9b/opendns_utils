@@ -28,7 +28,7 @@ class url_sanity():
             print "[*] Checking URL list against top 10,000 Alexa sites"        
         self.get_top_sites()
         matches = set(self._urls) & set(self._top_sites)
-        if matches != None:
+        if len(matches) != 0:
             self._proceed = False
             return self._proceed
         else:
