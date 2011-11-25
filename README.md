@@ -31,5 +31,4 @@ To Do
 =====
 * Error handling on Selenium tests
 * Provide clean options for URL checking
-* Provide clean option to block on all networks
 * Clean up logging

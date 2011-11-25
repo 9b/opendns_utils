@@ -2,7 +2,7 @@ from selenium import selenium
 import unittest
 
 class auto_block():
-    def __init__(self,username,password,network,urls,verbose):
+    def __init__(self,username,password,network,urls,verbose,add_all):
         self._url = "https://opendns.com"
         self._username = username
         self._password = password
@@ -10,6 +10,7 @@ class auto_block():
         self._urls = None
         self.url_file = urls
         self.verbose = verbose
+        self._add_all = add_all
 
         self.verificationErrors = []
         if self.verbose:
@@ -19,6 +20,7 @@ class auto_block():
         
         self.process_urls()
         self.login_test()
+        self.check_login()
         self.core_test()
         self.clean_up()
         
@@ -41,19 +43,28 @@ class auto_block():
         sel.click("id=dont_expire")
         sel.click("id=sign-in")
         sel.wait_for_page_to_load("50000")
-        if self.verbose:
-            print "[*] Signed in as " + self._username
+            
+    def check_login(self):
+        sel = self.selenium 
+        if not sel.is_element_present("link=Settings"):
+            print "[!] Login Failed"
+            raise Exception("FAILED_LOGIN")
+        else:
+            if self.verbose:
+                print "[*] Signed in as " + self._username            
 
     def core_test(self):
         sel = self.selenium
         if self.verbose:
-            print "[*] Accessing user setttings"
+            print "[*] Accessing setttings"
         sel.click("link=Settings")
         sel.wait_for_page_to_load("50000")
         if self.verbose:
             print "[*] Selecting network " + self._network
         sel.select("id=navigation-select","id=nav-network-" + self._network)
         sel.wait_for_page_to_load("50000")
+        if sel.is_element_present("id=add-domain-applytoall") and self._add_all:
+            sel.click("add-domain-applytoall")
         for url in self._urls:
             sel.type("id=block-domain", url.strip())
             sel.click("id=add-domain")
