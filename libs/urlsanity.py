@@ -26,6 +26,11 @@ class url_sanity():
         matches = None
         if self.verbose:
             print "[*] Checking URL list against top 10,000 Alexa sites"        
+        f = open(self._url_file,"r")
+        lines = f.readlines()
+        for line in lines:
+            self._urls.append(line.strip())
+
         self.get_top_sites()
         matches = set(self._urls) & set(self._top_sites)
         if len(matches) != 0:
