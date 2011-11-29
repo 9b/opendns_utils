@@ -27,8 +27,12 @@ Auto-block
 4. Navigation is made to the proper networking settings page
 5. Each URL in the list to block is added to the list of blocked domains
 
+Tests
+=====
+Added to test URLSanity class
+
 To Do
 =====
-* Error handling on Selenium tests
+* Error handling on Selenium tests - Partially there
 * Provide clean options for URL checking
 * Clean up logging
